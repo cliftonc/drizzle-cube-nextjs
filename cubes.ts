@@ -10,9 +10,9 @@ import { employees, departments, productivity } from './schema'
 import type { Schema } from './schema'
 
 // Forward declarations for circular dependency resolution
-let employeesCube: Cube<Schema>
-let departmentsCube: Cube<Schema>
-let productivityCube: Cube<Schema>
+let employeesCube: Cube
+let departmentsCube: Cube
+let productivityCube: Cube
 
 /**
  * Employees cube - employee analytics (single table)
@@ -21,9 +21,9 @@ employeesCube = defineCube('Employees', {
   title: 'Employee Analytics',
   description: 'Employee data and metrics',
   
-  sql: (ctx: QueryContext<Schema>): BaseQueryDefinition => ({
+  sql: (ctx: QueryContext): BaseQueryDefinition => ({
     from: employees,
-    where: eq(employees.organisationId, ctx.securityContext.organisationId)
+    where: eq(employees.organisationId, ctx.securityContext.organisationId as number)
   }),
 
   // Cube-level joins for cross-cube queries
@@ -114,7 +114,7 @@ employeesCube = defineCube('Employees', {
       format: 'currency'
     }
   }
-}) as Cube<Schema>
+}) as Cube
 
 /**
  * Departments cube - department-level analytics (single table)
@@ -123,9 +123,9 @@ departmentsCube = defineCube('Departments', {
   title: 'Department Analytics',
   description: 'Department-level metrics and budget analysis',
   
-  sql: (ctx: QueryContext<Schema>): BaseQueryDefinition => ({
+  sql: (ctx: QueryContext): BaseQueryDefinition => ({
     from: departments,
-    where: eq(departments.organisationId, ctx.securityContext.organisationId)
+    where: eq(departments.organisationId, ctx.securityContext.organisationId as number)
   }),
 
   // Cube-level joins for cross-cube queries
@@ -175,7 +175,7 @@ departmentsCube = defineCube('Departments', {
       sql: departments.budget
     }
   }
-}) as Cube<Schema>
+}) as Cube
 
 /**
  * Productivity cube - productivity metrics with time dimensions
@@ -184,9 +184,9 @@ productivityCube = defineCube('Productivity', {
   title: 'Productivity Analytics',
   description: 'Daily productivity metrics including code output and deployments',
   
-  sql: (ctx: QueryContext<Schema>): BaseQueryDefinition => ({
+  sql: (ctx: QueryContext): BaseQueryDefinition => ({
     from: productivity,  
-    where: eq(productivity.organisationId, ctx.securityContext.organisationId)
+    where: eq(productivity.organisationId, ctx.securityContext.organisationId as number)
   }),
 
   // Cube-level joins for multi-cube queries
@@ -340,7 +340,7 @@ productivityCube = defineCube('Productivity', {
       description: 'Composite productivity score based on code output, reviews, and deployments'
     }
   }
-}) as Cube<Schema>
+}) as Cube
 
 /**
  * Export cubes for use in other modules
