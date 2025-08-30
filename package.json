@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
-    "drizzle-cube": "^0.1.29",
+    "drizzle-cube": "^0.1.30",
     "drizzle-orm": "^0.44.4",
     "next": "^15.0.0",
     "postgres": "^3.4.0",
