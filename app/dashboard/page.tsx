@@ -54,7 +54,7 @@ export default function DashboardPage() {
                     <span>View Docs</span>
                   </a>
                   <a
-                    href="https://github.com/cliftonc/drizzle-cube/tree/main/examples/nextjs"
+                    href="https://github.com/cliftonc/drizzle-cube-nextjs"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center space-x-2 px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors border border-gray-200 hover:border-gray-300"
