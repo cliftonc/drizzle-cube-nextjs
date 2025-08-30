@@ -4,7 +4,7 @@
   "description": "Next.js 15 example with drizzle-cube",
   "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack -p 6001",
+    "dev": "next dev -p 6001",
     "build": "next build",
     "start": "next start -p 6001",
     "lint": "eslint .",
@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
-    "drizzle-cube": "^0.1.30",
+    "drizzle-cube": "^0.1.31",
     "drizzle-orm": "^0.44.4",
     "next": "^15.0.0",
     "postgres": "^3.4.0",
@@ -27,10 +27,11 @@
     "react-dom": "^18.3.0",
     "react-grid-layout": "^1.4.0",
     "react-resizable": "^3.0.0",
-    "recharts": "^2.8.0"
+    "recharts": "^3.1.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
+    "@tailwindcss/postcss": "^4.1.12",
     "@types/node": "^20.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
@@ -40,13 +41,13 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^15.0.0",
     "postcss": "^8.4.0",
-    "tailwindcss": "^3.4.0",
+    "tailwindcss": "^4.1.12",
     "tsx": "^4.0.0",
     "typescript": "^5.6.0"
   },
   "optionalDependencies": {
-    "lightningcss-linux-x64-gnu": "^1.30.0",
-    "@rollup/rollup-linux-x64-gnu": "^4.24.0"
+    "@rollup/rollup-linux-x64-gnu": "^4.24.0",
+    "lightningcss-linux-x64-gnu": "^1.30.0"
   },
   "keywords": [
     "analytics",

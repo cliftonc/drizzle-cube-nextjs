@@ -1,9 +1,7 @@
+@import "tailwindcss";
 /* Import Drizzle Cube styles (includes grid layout styles) */
 @import 'drizzle-cube/client/styles.css';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@source "../node_modules/drizzle-cube/dist/client";
 
 body {
   margin: 0;

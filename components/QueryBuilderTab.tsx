@@ -13,7 +13,7 @@ export default function QueryBuilderTab() {
           Build custom queries using the interactive query builder
         </p>
       </div>
-      <div className="bg-white rounded-lg shadow-sm border">
+      <div>
         <QueryBuilder />
       </div>
     </div>
