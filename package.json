@@ -27,7 +27,7 @@
     "react-dom": "^18.3.0",
     "react-grid-layout": "^1.4.0",
     "react-resizable": "^3.0.0",
-    "recharts": "^2.8.0"
+    "recharts": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
