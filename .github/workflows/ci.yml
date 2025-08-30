@@ -21,7 +21,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm run ci
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
 
       - name: Run type checking
         run: npm run typecheck
@@ -40,7 +43,7 @@ jobs:
           cache: 'npm'
       
       - name: Install dependencies
-        run: npm run ci
+        run: npm ci
 
       - name: Build client
         run: npm run build:client
