@@ -46,6 +46,8 @@ async function routeHandler(request: NextRequest, { params }: { params: Promise<
     return handlers.sql(request)
   } else if (path === 'dry-run') {
     return handlers.dryRun(request)
+  } else if (path === 'batch') {
+    return handlers.batch(request)
   } else {
     // Return 404 for unknown paths
     return new Response('Not Found', { status: 404 })
