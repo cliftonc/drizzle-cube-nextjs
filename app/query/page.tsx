@@ -1,7 +1,7 @@
 'use client'
 
 import { CubeProvider } from 'drizzle-cube/client'
-import QueryBuilderTab from '@/components/QueryBuilderTab'
+import AnalysisBuilderTab from '@/components/AnalysisBuilderTab'
 import Link from 'next/link'
 
 export default function QueryPage() {
@@ -37,7 +37,7 @@ export default function QueryPage() {
                     href="/query"
                     className="px-4 py-2 text-sm font-medium rounded-md bg-blue-100 text-blue-700 border border-blue-200"
                   >
-                    Query Builder
+                    Analysis Builder
                   </Link>
                 </div>
 
@@ -90,7 +90,7 @@ export default function QueryPage() {
 
         {/* Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <QueryBuilderTab />
+          <AnalysisBuilderTab />
         </div>
       </div>
     </CubeProvider>
