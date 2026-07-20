@@ -1,23 +1,27 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { AnalyticsDashboard } from 'drizzle-cube/client'
 import { dashboardConfig as defaultDashboardConfig } from '@/lib/dashboard-config'
 
 export default function DashboardTab() {
-  const [dashboardConfig, setDashboardConfig] = useState(defaultDashboardConfig)
-
-  // Load dashboard config from localStorage on mount
-  useEffect(() => {
-    const savedConfig = localStorage.getItem('nextjs-dashboard-config')
-    if (savedConfig) {
-      try {
-        setDashboardConfig(JSON.parse(savedConfig))
-      } catch (error) {
-        console.error('Failed to load dashboard config from localStorage:', error)
-      }
+  const [dashboardConfig, setDashboardConfig] = useState(() => {
+    if (typeof window === 'undefined') {
+      return defaultDashboardConfig
     }
-  }, [])
+
+    const savedConfig = localStorage.getItem('nextjs-dashboard-config')
+    if (!savedConfig) {
+      return defaultDashboardConfig
+    }
+
+    try {
+      return JSON.parse(savedConfig)
+    } catch (error) {
+      console.error('Failed to load dashboard config from localStorage:', error)
+      return defaultDashboardConfig
+    }
+  })
 
   // Save dashboard config to localStorage
   const saveDashboardConfig = (newConfig: any) => {
