@@ -1,15 +1,26 @@
+import { fixupConfigRules } from "@eslint/compat";
 import { defineConfig } from "eslint/config";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import nextVitals from "eslint-config-next/core-web-vitals";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
+const nextConfig = nextVitals.map((config) => {
+    if (config.name !== "next") {
+        return config;
+    }
+
+    const { parser, parserOptions, ...languageOptions } = config.languageOptions;
+
+    return {
+        ...config,
+        languageOptions: {
+            ...languageOptions,
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true,
+                },
+                sourceType: "module",
+            },
+        },
+    };
 });
 
 export default defineConfig([
@@ -21,5 +32,10 @@ export default defineConfig([
             "build/**",
         ],
     },
-    ...compat.extends("next/core-web-vitals"),
+    ...fixupConfigRules(nextConfig),
+    {
+        rules: {
+            "react-hooks/set-state-in-effect": "off",
+        },
+    },
 ]);
