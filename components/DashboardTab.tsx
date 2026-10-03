@@ -1,34 +1,55 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useMemo, useSyncExternalStore } from 'react'
 import { AnalyticsDashboard } from 'drizzle-cube/client'
 import { dashboardConfig as defaultDashboardConfig } from '@/lib/dashboard-config'
 
-export default function DashboardTab() {
-  const [dashboardConfig, setDashboardConfig] = useState(defaultDashboardConfig)
+const STORAGE_KEY = 'nextjs-dashboard-config'
+const listeners = new Set<() => void>()
 
-  // Load dashboard config from localStorage on mount
-  useEffect(() => {
-    const savedConfig = localStorage.getItem('nextjs-dashboard-config')
-    if (savedConfig) {
-      try {
-        setDashboardConfig(JSON.parse(savedConfig))
-      } catch (error) {
-        console.error('Failed to load dashboard config from localStorage:', error)
-      }
+// localStorage as an external store: the server snapshot is null (so SSR and
+// hydration render the default config), then the client reads the saved value.
+function subscribe(listener: () => void) {
+  listeners.add(listener)
+  window.addEventListener('storage', listener)
+  return () => {
+    listeners.delete(listener)
+    window.removeEventListener('storage', listener)
+  }
+}
+
+function writeSavedConfig(value: string | null) {
+  if (value === null) localStorage.removeItem(STORAGE_KEY)
+  else localStorage.setItem(STORAGE_KEY, value)
+  // The 'storage' event only fires in other tabs, so notify this one directly
+  listeners.forEach(listener => listener())
+}
+
+export default function DashboardTab() {
+  const savedConfig = useSyncExternalStore(
+    subscribe,
+    () => localStorage.getItem(STORAGE_KEY),
+    () => null
+  )
+
+  const dashboardConfig = useMemo(() => {
+    if (!savedConfig) return defaultDashboardConfig
+    try {
+      return JSON.parse(savedConfig)
+    } catch (error) {
+      console.error('Failed to load dashboard config from localStorage:', error)
+      return defaultDashboardConfig
     }
-  }, [])
+  }, [savedConfig])
 
   // Save dashboard config to localStorage
   const saveDashboardConfig = (newConfig: any) => {
-    setDashboardConfig(newConfig)
-    localStorage.setItem('nextjs-dashboard-config', JSON.stringify(newConfig))
+    writeSavedConfig(JSON.stringify(newConfig))
   }
 
   // Reset to default configuration
   const resetDashboard = () => {
-    setDashboardConfig(defaultDashboardConfig)
-    localStorage.removeItem('nextjs-dashboard-config')
+    writeSavedConfig(null)
   }
 
   return (

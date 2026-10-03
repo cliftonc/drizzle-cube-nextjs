@@ -20,7 +20,7 @@ export default function QueryPage() {
                   Drizzle Cube Next.js Example
                 </h1>
                 <p className="text-sm text-gray-500 hidden sm:block">
-                  Full-stack analytics dashboard with Next.js 15 and App Router
+                  Full-stack analytics dashboard with Next.js 16 and App Router
                 </p>
               </div>
               

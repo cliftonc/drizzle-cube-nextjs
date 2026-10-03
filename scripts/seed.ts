@@ -185,8 +185,8 @@ async function seedDatabase() {
     console.log('🎉 Database seeded successfully!')
     console.log('\nYou can now:')
     console.log('- Start the server with: npm run dev')
-    console.log('- Visit the dashboard at: http://localhost:6000')
-    console.log('- View the API at: http://localhost:6000/api/cube/cubejs-api/v1/meta')
+    console.log('- Visit the dashboard at: http://localhost:6001/dashboard')
+    console.log('- View the API at: http://localhost:6001/api/cubejs-api/v1/meta')
     
   } catch (error) {
     console.error('❌ Seeding failed:', error)
